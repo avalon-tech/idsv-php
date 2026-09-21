@@ -206,9 +206,10 @@ class idSV {
             throw new InvalidNITException();
         }
 
-        if($allowDUI){
-            $unformatted = $this->cleanDocument($unformatted);
+        // Clean the NIT whether or not DUIs are allowed
+        $unformatted = $this->cleanDocument($unformatted);
 
+        if($allowDUI){
             // If $unformatted is less than 8 characters long, it could be a DUI, pad it first
             $unformatted = str_pad($unformatted, 9, '0', STR_PAD_LEFT);
 

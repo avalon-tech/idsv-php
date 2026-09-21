@@ -179,6 +179,16 @@ class idSVTest extends TestCase {
                 $this->assertEquals('0000-000000-011-5', $validator->formatNIT('000000115', false));
         }
 
+        public function testFormatterCleansDashedNITWhenDUIsAreNotAllowed() {
+                $validator = new idSV();
+                $this->assertEquals('1234-567890-123-0', $validator->formatNIT('1234-567890-123-0', false));
+        }
+
+        public function testFormatterTrimsNITWhenDUIsAreNotAllowed() {
+                $validator = new idSV();
+                $this->assertEquals('1234-567890-123-0', $validator->formatNIT(' 12345678901230 ', false));
+        }
+
         public function testFormatterThrowsExceptionForInvalidDUI() {
                 $validator = new idSV();
                 $this->expectException(InvalidDUIException::class);
