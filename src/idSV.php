@@ -42,8 +42,8 @@ class idSV {
 
         $dui = $this->cleanDocument($dui);
 
-        // DUI must be numeric
-        if (!is_numeric($dui)) {
+        // DUI must be made of digits only
+        if (!ctype_digit($dui)) {
             return false;
         }
 
@@ -52,6 +52,11 @@ class idSV {
 
         // DUI must be 9 characters long
         if (strlen($dui) != 9) {
+            return false;
+        }
+
+        // A DUI made only of zeros does not exist
+        if (ltrim($dui, '0') === '') {
             return false;
         }
 
@@ -107,8 +112,8 @@ class idSV {
 
         $nit = $this->cleanDocument($nit);
 
-        // NIT must be numeric
-        if (!is_numeric($nit)) {
+        // NIT must be made of digits only
+        if (!ctype_digit($nit)) {
             return false;
         }
 
@@ -117,6 +122,11 @@ class idSV {
 
         // NIT must be 14 characters long
         if (strlen($nit) != 14) {
+            return false;
+        }
+
+        // A NIT made only of zeros does not exist
+        if (ltrim($nit, '0') === '') {
             return false;
         }
 
@@ -159,6 +169,11 @@ class idSV {
      */
     public function formatDUI(?string $unformatted)
     {
+        // A DUI that is null or empty cannot be formatted
+        if (is_null($unformatted) || trim($unformatted) === '') {
+            throw new InvalidDUIException();
+        }
+
         $unformatted = $this->cleanDocument($unformatted);
 
         // Pad DUI with zeros to the left, if it's less than 9 characters long
@@ -186,9 +201,15 @@ class idSV {
      */
     public function formatNIT(?string $unformatted, bool $allowDUI = true)
     {
-        if($allowDUI){
-            $unformatted = $this->cleanDocument($unformatted);
+        // A NIT that is null or empty cannot be formatted
+        if (is_null($unformatted) || trim($unformatted) === '') {
+            throw new InvalidNITException();
+        }
 
+        // Clean the NIT whether or not DUIs are allowed
+        $unformatted = $this->cleanDocument($unformatted);
+
+        if($allowDUI){
             // If $unformatted is less than 8 characters long, it could be a DUI, pad it first
             $unformatted = str_pad($unformatted, 9, '0', STR_PAD_LEFT);
 
