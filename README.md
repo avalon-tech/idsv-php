@@ -96,7 +96,6 @@ var_dump($validator->formatNIT('115', false)); // 0000-000000-011-5
 // Invalid NITs generate an exception
 try { $validator->formatNIT('12345678901231'); } catch (\Exception $e) { echo 'Exception: ' . $e->getMessage() . '\n';  } // Exception: Invalid NIT
 ```
-```
 ## Testing
 You can run the tests with PHPUnit:
 
