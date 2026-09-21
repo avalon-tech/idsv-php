@@ -42,8 +42,8 @@ class idSV {
 
         $dui = $this->cleanDocument($dui);
 
-        // DUI must be numeric
-        if (!is_numeric($dui)) {
+        // DUI must be made of digits only
+        if (!ctype_digit($dui)) {
             return false;
         }
 
@@ -107,8 +107,8 @@ class idSV {
 
         $nit = $this->cleanDocument($nit);
 
-        // NIT must be numeric
-        if (!is_numeric($nit)) {
+        // NIT must be made of digits only
+        if (!ctype_digit($nit)) {
             return false;
         }
 

@@ -53,6 +53,14 @@ class idSVTest extends TestCase {
                 $this->assertFalse($validator->isValidDUI('00000000-A'));
         }
 
+        public function testValidatorReturnsFalseForDUIInNumericNotation() {
+                $validator = new idSV();
+                $this->assertFalse($validator->isValidDUI('1e5'));
+                $this->assertFalse($validator->isValidDUI('1.5'));
+                $this->assertFalse($validator->isValidDUI('+12'));
+                $this->assertFalse($validator->isValidDUI('12 34'));
+        }
+
         public function testValidatorReturnsFalseForDUIWithMoreThan10Characters() {
                 $validator = new idSV();
                 $this->assertFalse($validator->isValidDUI('0000000000'));
@@ -106,6 +114,14 @@ class idSVTest extends TestCase {
         public function testValidatorReturnsFalseForNITWithLetters() {
                 $validator = new idSV();
                 $this->assertFalse($validator->isValidNIT('0000-000000-000-A'));
+        }
+
+        public function testValidatorReturnsFalseForNITInNumericNotation() {
+                $validator = new idSV();
+                $this->assertFalse($validator->isValidNIT('1e5'));
+                $this->assertFalse($validator->isValidNIT('1.5'));
+                $this->assertFalse($validator->isValidNIT('+12'));
+                $this->assertFalse($validator->isValidNIT('12 34'));
         }
 
         public function testValidatorReturnsTrueForValidNITinDUIFormat() {
