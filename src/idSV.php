@@ -55,6 +55,11 @@ class idSV {
             return false;
         }
 
+        // A DUI made only of zeros does not exist
+        if (ltrim($dui, '0') === '') {
+            return false;
+        }
+
         // DUI must have a valid check digit
         $checkDigit = substr($dui, -1);
 
@@ -117,6 +122,11 @@ class idSV {
 
         // NIT must be 14 characters long
         if (strlen($nit) != 14) {
+            return false;
+        }
+
+        // A NIT made only of zeros does not exist
+        if (ltrim($nit, '0') === '') {
             return false;
         }
 
