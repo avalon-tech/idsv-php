@@ -159,6 +159,11 @@ class idSV {
      */
     public function formatDUI(?string $unformatted)
     {
+        // A DUI that is null or empty cannot be formatted
+        if (is_null($unformatted) || trim($unformatted) === '') {
+            throw new InvalidDUIException();
+        }
+
         $unformatted = $this->cleanDocument($unformatted);
 
         // Pad DUI with zeros to the left, if it's less than 9 characters long
@@ -186,6 +191,11 @@ class idSV {
      */
     public function formatNIT(?string $unformatted, bool $allowDUI = true)
     {
+        // A NIT that is null or empty cannot be formatted
+        if (is_null($unformatted) || trim($unformatted) === '') {
+            throw new InvalidNITException();
+        }
+
         if($allowDUI){
             $unformatted = $this->cleanDocument($unformatted);
 

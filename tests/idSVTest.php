@@ -197,6 +197,42 @@ class idSVTest extends TestCase {
                 $validator->formatNIT('000000001');
         }
 
+        public function testFormatterThrowsExceptionForNullDUI() {
+                $validator = new idSV();
+                $this->expectException(InvalidDUIException::class);
+                $validator->formatDUI(null);
+        }
+
+        public function testFormatterThrowsExceptionForEmptyDUI() {
+                $validator = new idSV();
+                $this->expectException(InvalidDUIException::class);
+                $validator->formatDUI('');
+        }
+
+        public function testFormatterThrowsExceptionForNullNIT() {
+                $validator = new idSV();
+                $this->expectException(InvalidNITException::class);
+                $validator->formatNIT(null);
+        }
+
+        public function testFormatterThrowsExceptionForNullNITIfDUIsAreNotAllowed() {
+                $validator = new idSV();
+                $this->expectException(InvalidNITException::class);
+                $validator->formatNIT(null, false);
+        }
+
+        public function testFormatterThrowsExceptionForEmptyNIT() {
+                $validator = new idSV();
+                $this->expectException(InvalidNITException::class);
+                $validator->formatNIT('');
+        }
+
+        public function testFormatterThrowsExceptionForEmptyNITIfDUIsAreNotAllowed() {
+                $validator = new idSV();
+                $this->expectException(InvalidNITException::class);
+                $validator->formatNIT('', false);
+        }
+
         public function testFormatterReturnsFormattedDUIIfShorterStringProvided(){
                 $validator = new idSV();
                 $this->assertEquals('00000000-0', $validator->formatDUI('00'));
