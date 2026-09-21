@@ -146,7 +146,7 @@ class idSVTest extends TestCase {
 
         public function testValidatorReturnsFalseForDUIinNITValidationIfDUIsAreNotAllowed() {
                 $validator = new idSV();
-                $this->assertTrue($validator->isValidNit('12345678-4', true));
+                $this->assertFalse($validator->isValidNit('12345678-4', false));
         }
 
         public function testValidatorReturnsFalseForNullDUI() {
